@@ -30,26 +30,32 @@ app.get("/api/:date?", (req, res) => {
   let utc;
   switch(req.params.date){
     case undefined:
-      utc = new Date()
+      utc = new Date().toUTCString()
       unix = Date.now()
       res.json({unix: unix,utc: utc})
-    default: 
-      if(req.params.date.length >= 13 || req.params.date.length < 4) {
-        unix = req.params.date
-        utc = new Date(unix * 1).toUTCString()
-       
+    default:
+      console.log(req.params.date)
+      if(req.params.date === undefined) {
+        return
       } else {
-        console.log("ninoe")
-        unix = Date.parse(req.params.date)
-        utc = new Date(unix * 1).toUTCString()
-       
+        if(req.params.date.length >= 13 || req.params.date.length < 4) {
+          unix = req.params.date
+          utc = new Date(unix * 1).toUTCString()
+         
+        } else {
+          console.log("ninoe")
+          unix = Date.parse(req.params.date)
+          utc = new Date(unix * 1).toUTCString()
+         
+        }
+        if(utc === "Invalid Date") {
+          res.json({error: "Invalid Date"})
+        } else {
+          res.json({unix: unix,utc: utc})
+  
+        }
       }
-      if(utc === "Invalid Date") {
-        res.json({error: "Invalid Date"})
-      } else {
-        res.json({unix: unix,utc: utc})
-
-      }
+    
   }
 })
 
