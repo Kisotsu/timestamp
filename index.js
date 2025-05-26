@@ -34,11 +34,15 @@ app.get("/api/:date?", (req, res) => {
       unix = Date.now()
       res.json({unix: unix,utc: utc})
     default:
-      console.log(req.params.date)
+      console.log(new Date("05 October 2011, GMT"))
       if(req.params.date === undefined) {
         return
       } else {
-        if(req.params.date.length >= 13 || req.params.date.length < 4) {
+        if(new Date(req.params.date) !== "Invalid Date") {
+          console.log("ninoeeeee")
+          unix = Date.parse(req.params.date)
+          utc = new Date(unix * 1).toUTCString()
+        } else if(req.params.date.length >= 13 || req.params.date.length < 4) {
           unix = Number(req.params.date)
           utc = new Date(unix * 1).toUTCString()
          
