@@ -39,7 +39,7 @@ app.get("/api/:date?", (req, res) => {
         return
       } else {
         if(req.params.date.length >= 13 || req.params.date.length < 4) {
-          unix = req.params.date
+          unix = Number(req.params.date)
           utc = new Date(unix * 1).toUTCString()
          
         } else {
@@ -51,7 +51,7 @@ app.get("/api/:date?", (req, res) => {
         if(utc === "Invalid Date") {
           res.json({error: "Invalid Date"})
         } else {
-          res.json({unix: unix,utc: utc})
+          res.json({unix,utc})
   
         }
       }
