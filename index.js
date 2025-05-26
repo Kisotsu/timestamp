@@ -36,20 +36,20 @@ app.get("/api/:date?", (req, res) => {
     default: 
       if(req.params.date.length >= 13 || req.params.date.length < 4) {
         unix = req.params.date
-        console.log(req.params.date.length, "1748200962230".length)
         utc = new Date(unix * 1).toUTCString()
-        if(utc === "Invalid Date") {
-          res.json({error: "Invalid Date"})
-        }
+       
       } else {
         console.log("ninoe")
         unix = Date.parse(req.params.date)
         utc = new Date(unix * 1).toUTCString()
-        if(utc === "Invalid Date") {
-          res.json({error: "Invalid Date"})
-        }
+       
       }
-      res.json({unix: unix,utc: utc})
+      if(utc === "Invalid Date") {
+        res.json({error: "Invalid Date"})
+      } else {
+        res.json({unix: unix,utc: utc})
+
+      }
   }
 })
 
