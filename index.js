@@ -37,14 +37,14 @@ app.get("/api/:date?", (req, res) => {
       if(req.params.date.length >= 13 || req.params.date.length < 4) {
         unix = req.params.date
         console.log(req.params.date.length, "1748200962230".length)
-        utc = new Date(unix * 1).toDateString()
+        utc = new Date(unix * 1).toUTCString()
         if(utc === "Invalid Date") {
           res.json({error: "Invalid Date"})
         }
       } else {
         console.log("ninoe")
         unix = Date.parse(req.params.date)
-        utc = new Date(unix * 1).toDateString()
+        utc = new Date(unix * 1).toUTCString()
         if(utc === "Invalid Date") {
           res.json({error: "Invalid Date"})
         }
